@@ -8,7 +8,7 @@ module.exports = class AppCachePlugin
     @path = sysPath.join @config.paths.public, 'cache.appcache'
     Object.freeze this
 
-  onCompile: (generatedFiles) =>
+  onCompile: (generatedFiles) ->
     re = /\n# Compilation time: [TZ\d\-:.]+\n/
     compilationTime = "\n# Compilation time: #{new Date().toISOString()}\n"
     fs.exists @path, (exists) =>
