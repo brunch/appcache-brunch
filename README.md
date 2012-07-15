@@ -1,7 +1,7 @@
 ## appcache-brunch
 Adds [brunch](http://brunch.io) compilation time to HTML5 appcache file.
 
-If `cache.appcache` exists in any of your `assets/` directory,
+If `appcache.appcache` exists in any of your `assets/` directory,
 plugin will add build time on bottom of the file after every build.
 
 ## Usage

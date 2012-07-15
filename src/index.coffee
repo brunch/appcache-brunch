@@ -5,7 +5,7 @@ module.exports = class AppCachePlugin
   brunchPlugin: yes
 
   constructor: (@config) ->
-    @path = sysPath.join @config.paths.public, 'cache.appcache'
+    @path = sysPath.join @config.paths.public, 'appcache.appcache'
     Object.freeze this
 
   onCompile: (generatedFiles) ->
