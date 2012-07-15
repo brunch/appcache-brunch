@@ -1,4 +1,4 @@
-## appcache-brunch
+# appcache-brunch
 Adds [brunch](http://brunch.io) compilation time to HTML5 appcache file.
 
 If `appcache.appcache` exists in any of your `assets/` directory,
