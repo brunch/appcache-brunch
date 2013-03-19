@@ -3,10 +3,10 @@
   "version": "1.5.1",
   "description": "Adds HTML5 .appcache generation to brunch.",
   "author": "Paul Miller (http://paulmillr.com/)",
-  "homepage": "https://github.com/brunch/coffee-script-brunch",
+  "homepage": "https://github.com/brunch/appcache-brunch",
   "repository": {
     "type": "git",
-    "url": "git@github.com:brunch/coffee-script-brunch.git"
+    "url": "git@github.com:brunch/appcache-brunch.git"
   },
   "main": "./lib/index",
   "scripts": {
