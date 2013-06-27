@@ -1,3 +1,8 @@
+# appcache-brunch edge (unreleased)
+* Complete rewrite to generate appcache based on all files in public directory.
+* Keeps track of file changes and updates appcache accordingly
+* Massive thanks to @davidchambers
+
 # appcache-brunch 1.5.1 (19 March 2013)
 * Added node 0.10 support, removed coffee-script dependency.
 
