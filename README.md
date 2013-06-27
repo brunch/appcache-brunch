@@ -1,10 +1,13 @@
 # appcache-brunch
-Adds [brunch](http://brunch.io) compilation time to HTML5 appcache file.
 
-If `appcache.appcache` exists in any of your `assets/` directory,
-plugin will add build time on bottom of the file after every build.
+[Brunch][1] plugin which generates a [cache manifest][2] as part of the
+`brunch build` process.
+
+[1]: http://brunch.io
+[2]: https://developer.mozilla.org/en-US/docs/HTML/Using_the_application_cache#The_cache_manifest_file
 
 ## Usage
+
 Install the plugin via npm with `npm install --save appcache-brunch`.
 
 Or, do manual install:
@@ -13,6 +16,52 @@ Or, do manual install:
   Pick a plugin version that corresponds to your minor (y) brunch version.
 * If you want to use git version of plugin, add
 `"appcache-brunch": "git+ssh://git@github.com:brunch/appcache-brunch.git"`.
+
+Specify [plugin settings](#settings) in config.coffee. For example:
+
+```coffeescript
+exports.config =
+  # ...
+  appcache:
+    staticRoot: '/static'
+    network: ['*']
+    fallback: {}
+```
+
+Link to the manifest from each template. For example:
+
+```html
+<html manifest="/static/appcache.appcache">
+```
+
+## Settings
+
+### appcache.staticRoot
+
+The static media root, such as "/static" or "http://static.example.com".
+
+### appcache.network
+
+An array of resource URIs which require a network connection. For example:
+
+```coffeescript
+network: [
+  'login.php'
+  '/myapi'
+  'http://api.twitter.com'
+]
+```
+
+### appcache.fallback
+
+An object mapping resource URIs to fallback URIs. For example:
+
+```coffeescript
+fallback:
+  '/main.py': '/static.html'
+  'images/large/': 'images/offline.jpg'
+  '*.html': '/offline.html'
+```
 
 ## License
 
