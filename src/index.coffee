@@ -44,7 +44,7 @@ class Walker
 class Manifest
   constructor: (@config) ->
     # By default, ignore hidden files and files in hidden directories.
-    @ignore = @config.appcache.ignore ? /[/][.]/
+    @ignore = @config.appcache.ignore ? /[\\/][.]/
 
   brunchPlugin: true
 
