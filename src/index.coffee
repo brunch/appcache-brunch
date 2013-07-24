@@ -43,6 +43,8 @@ class Walker
 
 class Manifest
   constructor: (@config) ->
+    # By default, ignore hidden files and files in hidden directories.
+    @ignore = @config.appcache.ignore ? /[/][.]/
 
   brunchPlugin: true
 
@@ -50,7 +52,7 @@ class Manifest
     paths = []
     walker = new Walker
     walker.walk @config.paths.public, (path) =>
-      paths.push path unless /[.]appcache$/.test path
+      paths.push path unless /[.]appcache$/.test(path) or @ignore.test(path)
       unless walker.walking
         shasums = []
         paths.sort()
