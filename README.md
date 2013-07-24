@@ -40,6 +40,12 @@ Link to the manifest from each template. For example:
 
 The static media root, such as "/static" or "http://static.example.com".
 
+### appcache.ignore
+
+A regular expression specifying paths to omit from the manifest. By default,
+hidden files and files in hidden directories are ignored (the default pattern
+is `/[/][.]/`).
+
 ### appcache.network
 
 An array of resource URIs which require a network connection. For example:
