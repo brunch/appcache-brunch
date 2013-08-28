@@ -1,4 +1,4 @@
-# appcache-brunch edge (unreleased)
+# appcache-brunch 1.7.0 (28 August 2013)
 * Complete rewrite to generate appcache based on all files in public directory.
 * Keeps track of file changes and updates appcache accordingly
 * Massive thanks to @davidchambers
