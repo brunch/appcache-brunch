@@ -43,17 +43,8 @@ class Walker
 
 class Manifest
   constructor: (@config) ->
-    # Defaults options
-    @options = {
-      ignore: /[\\/][.]/
-      network: ['*']
-      fallback: {}
-      staticRoot: false
-    }
-
-    # Merge config
-    if toString.call(@config.appcache) is '[object Object]'
-      @options[k] = @config.appcache[k] for k of @config.appcache
+    # By default, ignore hidden files and files in hidden directories.
+    @ignore = @config.appcache.ignore ? /[\\/][.]/
 
   brunchPlugin: true
 
@@ -61,7 +52,7 @@ class Manifest
     paths = []
     walker = new Walker
     walker.walk @config.paths.public, (path) =>
-      paths.push path unless /[.]appcache$/.test(path) or @options.ignore.test(path)
+      paths.push path unless /[.]appcache$/.test(path) or @ignore.test(path)
       unless walker.walking
         shasums = []
         paths.sort()
@@ -81,26 +72,19 @@ class Manifest
     ("#{k} #{obj[k]}" for k in Object.keys(obj).sort()).join('\n')
 
   write: (paths, shasum) ->
-    # trick config.staticRoot to allow base-relative paths
-    # without affecting existing users configs
-    if typeof @options.staticRoot is 'string'
-      root = @options.staticRoot + '/'
-    else
-      root = ''
-
     fs.writeFileSync pathlib.join(@config.paths.public, 'appcache.appcache'),
     """
       CACHE MANIFEST
       # #{shasum}
 
       NETWORK:
-      #{@options.network.join('\n')}
+      #{@config.appcache.network.join('\n')}
 
       FALLBACK:
-      #{format @options.fallback}
+      #{format @config.appcache.fallback}
 
       CACHE:
-      #{("#{root}#{p}" for p in paths).join('\n')}
+      #{("#{@config.appcache.staticRoot}/#{p}" for p in paths).join('\n')}
     """
 
 
