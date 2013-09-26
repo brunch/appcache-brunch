@@ -48,7 +48,7 @@ class Manifest
       ignore: /[\\/][.]/
       network: ['*']
       fallback: {}
-      staticRoot: ""
+      staticRoot: "/"
     }
 
     # Merge config
@@ -80,6 +80,11 @@ class Manifest
     ("#{k} #{obj[k]}" for k in Object.keys(obj).sort()).join('\n')
 
   write: (paths, shasum) ->
+    # trick config.staticRoot to allow base-relative paths
+    # without affecting existing users configs
+    root = @options.staticRoot
+    root = root + '/' if root.length && (root.slice(-1) != '/')
+
     fs.writeFileSync pathlib.join(@config.paths.public, 'appcache.appcache'),
     """
       CACHE MANIFEST
@@ -92,7 +97,7 @@ class Manifest
       #{format @options.fallback}
 
       CACHE:
-      #{("#{@options.staticRoot}/#{p}" for p in paths).join('\n')}
+      #{("#{root}#{p}" for p in paths).join('\n')}
     """
 
 
