@@ -76,6 +76,16 @@ fallback:
 
 Default value : `{}`
 
+### appcache.manifestFile
+
+Output filename. For example:
+
+```coffeescript
+manifestFile: "appcache.appcache"
+```
+
+Default value : `"appcache.appcache"`
+
 ## License
 
 The MIT License (MIT)
