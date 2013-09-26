@@ -52,7 +52,8 @@ class Manifest
     }
 
     # Merge config
-    @options[k] = @config.appcache[k] for k in Object.keys(@config.appcache) if @config.appcache?
+    if toString.call(@config.appcache) is '[object Object]'
+      @options[k] = @config.appcache[k] for k of @config.appcache
 
   brunchPlugin: true
 
