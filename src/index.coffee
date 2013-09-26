@@ -43,8 +43,21 @@ class Walker
 
 class Manifest
   constructor: (@config) ->
-    # By default, ignore hidden files and files in hidden directories.
-    @ignore = @config.appcache.ignore ? /[\\/][.]/
+
+    if 'appcache' of @config
+      console.warn 'Warning: config.appcache is deprecated, please move it to config.plugins.appcache'
+
+    # Defaults options
+    @options = {
+      ignore: /[\\/][.]/
+      network: ['*']
+      fallback: {}
+      staticRoot: '.'
+    }
+
+    # Merge config
+    cfg = @config.plugins?.appcache ? @config.appcache ? {}
+    @options[k] = cfg[k] for k of cfg
 
   brunchPlugin: true
 
@@ -52,7 +65,7 @@ class Manifest
     paths = []
     walker = new Walker
     walker.walk @config.paths.public, (path) =>
-      paths.push path unless /[.]appcache$/.test(path) or @ignore.test(path)
+      paths.push path unless /[.]appcache$/.test(path) or @options.ignore.test(path)
       unless walker.walking
         shasums = []
         paths.sort()
@@ -78,13 +91,13 @@ class Manifest
       # #{shasum}
 
       NETWORK:
-      #{@config.appcache.network.join('\n')}
+      #{@options.network.join('\n')}
 
       FALLBACK:
-      #{format @config.appcache.fallback}
+      #{format @options.fallback}
 
       CACHE:
-      #{("#{@config.appcache.staticRoot}/#{p}" for p in paths).join('\n')}
+      #{("#{@options.staticRoot}/#{p}" for p in paths).join('\n')}
     """
 
 

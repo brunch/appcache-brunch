@@ -22,10 +22,11 @@ Specify [plugin settings](#settings) in config.coffee. For example:
 ```coffeescript
 exports.config =
   # ...
-  appcache:
-    staticRoot: '/static'
-    network: ['*']
-    fallback: {}
+  plugins:
+    appcache:
+      staticRoot: '/static'
+      network: ['*']
+      fallback: {}
 ```
 
 Link to the manifest from each template. For example:
@@ -38,17 +39,19 @@ Link to the manifest from each template. For example:
 
 ### appcache.staticRoot
 
-The static media root, such as "/static" or "http://static.example.com".
+The static media root, such as ".", "/static" or "http://static.example.com".
+
+Default value : `'.'`
 
 ### appcache.ignore
 
-A regular expression specifying paths to omit from the manifest. By default,
-hidden files and files in hidden directories are ignored (the default pattern
-is `/[/][.]/`).
+A regular expression specifying paths to omit from the manifest.
+
+Default value : `/[/][.]/` (hidden files and files in hidden directories are ignored)
 
 ### appcache.network
 
-An array of resource URIs which require a network connection. For example:
+An array of resource URIs which require a network connection added to `NETWORK` section. For example:
 
 ```coffeescript
 network: [
@@ -58,9 +61,11 @@ network: [
 ]
 ```
 
+Default value : `["*"]`
+
 ### appcache.fallback
 
-An object mapping resource URIs to fallback URIs. For example:
+An object mapping resource URIs to fallback URIs added to `FALLBACK` section. For example:
 
 ```coffeescript
 fallback:
@@ -68,6 +73,8 @@ fallback:
   'images/large/': 'images/offline.jpg'
   '*.html': '/offline.html'
 ```
+
+Default value : `{}`
 
 ## License
 
