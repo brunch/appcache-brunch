@@ -48,7 +48,7 @@ class Manifest
       ignore: /[\\/][.]/
       network: ['*']
       fallback: {}
-      staticRoot: "/"
+      staticRoot: false
     }
 
     # Merge config
@@ -83,8 +83,10 @@ class Manifest
   write: (paths, shasum) ->
     # trick config.staticRoot to allow base-relative paths
     # without affecting existing users configs
-    root = @options.staticRoot
-    root = root + '/' if root.length && (root.slice(-1) != '/')
+    if typeof @options.staticRoot is 'string'
+      root = @options.staticRoot + '/'
+    else
+      root = ''
 
     fs.writeFileSync pathlib.join(@config.paths.public, 'appcache.appcache'),
     """
