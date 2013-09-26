@@ -49,6 +49,19 @@ A regular expression specifying paths to omit from the manifest.
 
 Default value : `/[/][.]/` (hidden files and files in hidden directories are ignored)
 
+### appcache.externalCacheEntries
+
+An array of additionals URIs added to `CACHE` section. For example:
+
+```coffeescript
+externalCacheEntries: [
+  'http://other.example.org/image.jpg'
+  # ...
+]
+```
+
+Default value : `[]`
+
 ### appcache.network
 
 An array of resource URIs which require a network connection added to `NETWORK` section. For example:
