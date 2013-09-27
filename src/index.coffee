@@ -43,17 +43,23 @@ class Walker
 
 class Manifest
   constructor: (@config) ->
+
+    if 'appcache' of @config
+      console.warn 'Warning: config.appcache is deprecated, please move it to config.plugins.appcache'
+
     # Defaults options
     @options = {
       ignore: /[\\/][.]/
+      externalCacheEntries: []
       network: ['*']
       fallback: {}
-      staticRoot: false
+      staticRoot: '.'
+      manifestFile: 'appcache.appcache'
     }
 
     # Merge config
-    if toString.call(@config.appcache) is '[object Object]'
-      @options[k] = @config.appcache[k] for k of @config.appcache
+    cfg = @config.plugins?.appcache ? @config.appcache ? {}
+    @options[k] = cfg[k] for k of cfg
 
   brunchPlugin: true
 
@@ -81,14 +87,7 @@ class Manifest
     ("#{k} #{obj[k]}" for k in Object.keys(obj).sort()).join('\n')
 
   write: (paths, shasum) ->
-    # trick config.staticRoot to allow base-relative paths
-    # without affecting existing users configs
-    if typeof @options.staticRoot is 'string'
-      root = @options.staticRoot + '/'
-    else
-      root = ''
-
-    fs.writeFileSync pathlib.join(@config.paths.public, 'appcache.appcache'),
+    fs.writeFileSync pathlib.join(@config.paths.public, @options.manifestFile),
     """
       CACHE MANIFEST
       # #{shasum}
@@ -100,7 +99,8 @@ class Manifest
       #{format @options.fallback}
 
       CACHE:
-      #{("#{root}#{p}" for p in paths).join('\n')}
+      #{("#{@options.staticRoot}/#{p}" for p in paths).join('\n')}
+      #{@options.externalCacheEntries.join('\n')}
     """
 
 
