@@ -1,3 +1,6 @@
+# appcache-brunch 1.7.1 (3 November 2013)
+* Added support for manifestFile and externalCacheEntries settings.
+
 # appcache-brunch 1.7.0 (28 August 2013)
 * Complete rewrite to generate appcache based on all files in public directory.
 * Keeps track of file changes and updates appcache accordingly
