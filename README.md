@@ -8,7 +8,7 @@
 
 ## Usage
 
-Install the plugin via npm with `npm install --save appcache-brunch`.
+Install the plugin via npm with `npm install --save-dev appcache-brunch`.
 
 Or, do manual install:
 
