@@ -80,7 +80,7 @@ class Manifest
             if shasums.length is paths.length
               shasum = crypto.createHash 'sha1'
               shasum.update shasums.sort().join(), 'ascii'
-              @write((pathlib.relative @config.paths.public, p for p in paths),
+              @write((pathlib.relative @config.paths.public, p for p in paths).replace /\\/g '/',
                      shasum.digest 'hex')
 
   format = (obj) ->
