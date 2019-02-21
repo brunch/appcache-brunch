@@ -1,6 +1,6 @@
 {
   "name": "appcache-brunch",
-  "version": "1.7.1",
+  "version": "2.0.0",
   "description": "Adds HTML5 .appcache generation to brunch.",
   "author": "Paul Miller (http://paulmillr.com/)",
   "homepage": "https://github.com/brunch/appcache-brunch",
